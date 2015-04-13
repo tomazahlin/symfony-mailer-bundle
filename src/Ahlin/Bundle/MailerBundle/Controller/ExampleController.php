@@ -38,7 +38,7 @@ class ExampleController
         $sender     = new User('sender@test.com',    'Test sender user');
         $recipient  = new User('recipient@test.com', 'Test recipient user');
 
-        // Creates the mail, note that the message itself if defined in template
+        // Creates the mail, note that the message itself is defined in template
         $mail = $this->mailing->getFactory()
             ->create($sender, $recipient, 'Test subject');
 
@@ -72,7 +72,7 @@ class ExampleController
         // Some test object, whose values we want to display in the template
         $test = new \stdClass();
 
-        // Creates the mail, note that the message itself if defined in template
+        // Creates the mail, note that the message itself is defined in template
         $mail = $this->mailing->getFactory()
             ->createAdvanced($sender, 'Test subject')
             ->addAttachment($attachment)
@@ -98,7 +98,7 @@ class ExampleController
         $sender     = new User('sender@test.com',    'Test sender user');
         $recipient  = new User('recipient@test.com', 'Test recipient user');
 
-        // Creates the mail, note that the message itself if defined in template
+        // Creates the mail, note that the message itself is defined in template
         $mail = $this->mailing->getFactory()
             ->create($sender, $recipient, 'Test subject');
 
