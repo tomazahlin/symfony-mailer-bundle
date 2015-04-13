@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+
+        <parameter key="ahlin_mailer.default.content_type" type="string">text/html</parameter>
+        <parameter key="ahlin_mailer.default.template" type="constant">Ahlin\Bundle\MailerBundle\Mapping\DefaultMapping::TEMPLATE</parameter>
+        <parameter key="ahlin_mailer.default.title" type="string">Mail title</parameter>
+        <parameter key="ahlin_mailer.default.home_url" type="string">https://localhost</parameter>
+        <parameter key="ahlin_mailer.default.logo_url" type="string">https://localhost/img/logo.png</parameter>
+        <parameter key="ahlin_mailer.default.unsubscribe_url" type="string">https://localhost/unsubscribe</parameter>
+        <parameter key="ahlin_mailer.default.sender.email">mailer@my-domain</parameter>
+        <parameter key="ahlin_mailer.default.sender.name">Mailer</parameter>
+
+        <parameter key="ahlin_mailer.default.mailer.class">Ahlin\Bundle\MailerBundle\Mailer\Mailer</parameter>
+        <parameter key="ahlin_mailer.default.factory.class">Ahlin\Bundle\MailerBundle\Factory\MailFactory</parameter>
+
+    </parameters>
+
+    <services>
+
+        <service id="ahlin_mailer.templating" alias="templating.engine.twig" public="false" />
+
+        <service id="ahlin_mailer.renderer" class="Ahlin\Bundle\MailerBundle\Renderer\Renderer" public="false">
+            <argument type="service" id="ahlin_mailer.templating" />
+            <argument>%ahlin_mailer.default.content_type%</argument>
+            <argument>%ahlin_mailer.default.template%</argument>
+            <argument>%ahlin_mailer.default.title%</argument>
+            <argument>%ahlin_mailer.default.home_url%</argument>
+            <argument>%ahlin_mailer.default.logo_url%</argument>
+            <argument>%ahlin_mailer.default.unsubscribe_url%</argument>
+        </service>
+
+        <service id="ahlin_mailer.mailer" class="%ahlin_mailer.default.mailer.class%" public="false">
+            <argument type="service" id="mailer" />
+            <argument type="service" id="ahlin_mailer.renderer" />
+        </service>
+
+        <service id="ahlin_mailer.mail_factory" class="%ahlin_mailer.default.factory.class%" public="false">
+            <argument>%ahlin_mailer.default.template%</argument>
+        </service>
+
+        <service id="ahlin_mailer.mailing" class="Ahlin\Bundle\MailerBundle\Mailing" public="true">
+            <argument type="service" id="ahlin_mailer.mailer" />
+            <argument type="service" id="ahlin_mailer.mail_factory" />
+        </service>
+
+        <service id="ahlin_mailer.mapping_default" class="Ahlin\Bundle\MailerBundle\Mapping\DefaultMapping" public="false">
+            <tag name="ahlin_mailer.mapping" />
+        </service>
+
+        <service id="ahlin_mailer.terminate_listener" class="Ahlin\Bundle\MailerBundle\Event\Listener\TerminateListener">
+            <argument type="service" id="ahlin_mailer.mailer" />
+            <tag name="kernel.event_listener" event="kernel.terminate" method="execute" priority="255" />
+        </service>
+
+    </services>
+
+</container>

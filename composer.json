@@ -1,0 +1,34 @@
+{
+    "name": "tomazahlin/symfony-mailer-bundle",
+    "type": "symfony-bundle",
+    "description": "Mailer bundle provides a mailer (mail broker) implementation (Swiftmailer wrapper) for Symfony2 framework. It enables you to send mails in a very elegant way while providing extension points for needed modifications.",
+    "keywords": ["symfony2", "mail", "mailer", "bundle"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomaz Ahlin",
+            "email": "tomaz.ahlin2@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/symfony": "2.6.*",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "sensio/distribution-bundle": "~3.0,>=3.0.12",
+        "sensio/framework-extra-bundle": "~3.0,>=3.0.2"
+
+    },
+    "require-dev": {
+        "ext-xdebug": ">=2.1.4",
+        "phpspec/phpspec": "~2.0",
+        "henrikbjorn/phpspec-code-coverage": "~1.0",
+        "matthiasnoback/symfony-config-test": "0.*",
+        "matthiasnoback/symfony-dependency-injection-test": "0.*"
+    },
+    "autoload": {
+      "psr-0": { "": "src/" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}

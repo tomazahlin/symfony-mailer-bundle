@@ -1,0 +1,157 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <title>{{ _title }}</title>
+
+    <style type="text/css">
+        .ReadMsgBody {width: 100%; background-color: #ffffff;}
+        .ExternalClass {width: 100%; background-color: #ffffff;}
+        body	 {width: 100%; background-color: #ffffff; margin:0; padding:0; -webkit-font-smoothing: antialiased;font-family: Georgia, Times, serif}
+        table {border-collapse: collapse;}
+        h3 {
+            color: #363636;
+        }
+        @media only screen and (max-width: 640px)  {
+            body[yahoo] .deviceWidth {width:440px!important; padding:0;}
+            body[yahoo] .center {text-align: center!important;}
+        }
+
+        @media only screen and (max-width: 479px) {
+            body[yahoo] .deviceWidth {width:280px!important; padding:0;}
+            body[yahoo] .center {text-align: center!important;}
+        }
+
+    </style>
+</head>
+
+<body marginwidth="0" marginheight="0" style="font-family: Georgia, Times, serif" yahoo="fix" topmargin="0" leftmargin="0">
+
+<!-- Wrapper -->
+<table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+    <tbody>
+    <tr>
+        <td width="100%" valign="top" bgcolor="#ffffff" style="padding-top:20px">
+            <!-- Start Header-->
+            <table width="580" cellspacing="0" cellpadding="0" border="0" align="center" class="deviceWidth">
+                <tbody><tr>
+                    <td width="100%" bgcolor="#ffffff">
+
+                        <!-- Logo -->
+                        <table cellspacing="0" cellpadding="0" border="0" align="left" class="deviceWidth">
+                            <tbody><tr>
+                                <td style="padding:10px 20px" class="center">
+                                    <a href="{{ _homeUrl }}"><img src="{{ _logoUrl }}" title="{{ _title }}"/></a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table><!-- End Logo -->
+
+
+                    </td>
+                </tr>
+                </tbody></table><!-- End Header -->
+
+            <!-- Bar -->
+            <table width="580" cellspacing="0" cellpadding="0" border="0" bgcolor="#202022" align="center" class="deviceWidth">
+                <tbody>
+                <tr>
+                    <td bgcolor="#363636"><div style="height:6px">&nbsp;</div></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!-- One Column -->
+            <table width="580" cellspacing="0" cellpadding="0" border="0" bgcolor="#eeeeed" align="center" class="deviceWidth">
+                <tbody>
+                <tr>
+                    <td valign="top" bgcolor="#ffffff" style="padding:0"></td>
+                </tr>
+                <tr>
+                    <td bgcolor="#eeeeed" style="font-size: 13px; color: #444444; font-weight: normal; text-align: left; font-family: Georgia, Times, serif; line-height: 24px; vertical-align: top; padding:10px 8px 10px 8px">
+
+                        <table>
+                            <tbody>
+                            <tr>
+                                <td valign="top" style="padding:0 10px 10px 0; text-align: justify;">
+                                    {% block content %}
+                                        This is a default content. You can use view inheritance to specify this content.
+                                    {% endblock %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" style="padding:0 10px 10px 0">
+                                    {% if _unsubscribeUrl is defined %}
+                                        <p>If you wish to unsubscribe, click {{ _unsubscribeUrl }}.</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- End One Column -->
+
+            <div style="height:15px">&nbsp;</div><!-- spacer -->
+
+            <!-- Bar -->
+            <table width="580" cellspacing="0" cellpadding="0" border="0" bgcolor="#202022" align="center" class="deviceWidth">
+                <tbody>
+                <tr>
+                    <td bgcolor="#363636"><div style="height:6px">&nbsp;</div></td>
+                </tr>
+                </tbody>
+            </table>
+
+
+
+            <div style="height:15px">&nbsp;</div><!-- spacer -->
+
+
+            <!-- 4 Columns -->
+            <table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
+                <tbody><tr>
+                    <td bgcolor="#eeeeee" style="padding:30px 0">
+                        <table width="580" cellspacing="0" cellpadding="0" border="0" align="center" class="deviceWidth">
+                            <tbody><tr>
+                                <td>
+                                    <table width="45%" cellspacing="0" cellpadding="0" border="0" align="left" class="deviceWidth">
+                                        <tbody><tr>
+                                            <td valign="top" class="center" style="font-size: 11px; color: #f1f1f1; color:#999; font-family: Arial, sans-serif; padding-bottom:20px">
+
+
+
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table width="40%" cellspacing="0" cellpadding="0" border="0" align="right" class="deviceWidth">
+                                        <tbody><tr>
+                                            <td valign="top" style="font-size: 11px; color: #f1f1f1; font-weight: normal; font-family: Georgia, Times, serif; line-height: 26px; vertical-align: top; text-align:right" class="center">
+                                                <a href="http://{{ service.website.domain }}">{{ service.website.alias }}</a><br>
+                                                <a style="text-decoration: none; color: #848484; font-weight: normal;" href="tel:{{ service.telephone }}">{{ service.telephone }}</a><br>
+                                                <a style="text-decoration: none; color: #848484; font-weight: normal;" href="mailto:{{ service.email.info }}">{{ service.email.info }}</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                </td>
+                            </tr>
+                            </tbody></table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- End 4 Columns -->
+        </td>
+    </tr>
+    </tbody></table> <!-- End Wrapper -->
+
+
+</body></html>

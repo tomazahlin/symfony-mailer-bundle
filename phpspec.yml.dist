@@ -1,0 +1,20 @@
+suites:
+    default:
+        src_path: src
+
+formatter.name: pretty
+
+extensions:
+  - PhpSpec\Extension\CodeCoverageExtension
+
+code_coverage:
+  blacklist:
+    - src/Ahlin/Bundle/MailerBundle/Context
+    - src/Ahlin/Bundle/MailerBundle/Resources
+    - src/Ahlin/Bundle/MailerBundle/Tests
+  format:
+    #- html
+    - clover
+  output:
+    #html: test/build/coverage
+    clover: test/build/coverage.xml
