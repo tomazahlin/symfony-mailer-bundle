@@ -47,3 +47,5 @@ bin/behat
 ## Examples
 
 [View a controller with examples here](https://github.com/tomazahlin/symfony-mailer-bundle/blob/master/src/Ahlin/Bundle/MailerBundle/Controller/ExampleController.php)
+
+Todo: Add more examples and how to extend / override bundle defaults
