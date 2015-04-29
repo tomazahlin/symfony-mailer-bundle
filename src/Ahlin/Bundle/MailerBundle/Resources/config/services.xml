@@ -9,11 +9,15 @@
         <parameter key="ahlin_mailer.default.content_type" type="string">text/html</parameter>
         <parameter key="ahlin_mailer.default.template" type="constant">Ahlin\Bundle\MailerBundle\Mapping\DefaultMapping::TEMPLATE</parameter>
         <parameter key="ahlin_mailer.default.title" type="string">Mail title</parameter>
+
         <parameter key="ahlin_mailer.default.home_url" type="string">https://localhost</parameter>
         <parameter key="ahlin_mailer.default.logo_url" type="string">https://localhost/img/logo.png</parameter>
         <parameter key="ahlin_mailer.default.unsubscribe_url" type="string">https://localhost/unsubscribe</parameter>
+
         <parameter key="ahlin_mailer.default.sender.email">mailer@my-domain</parameter>
         <parameter key="ahlin_mailer.default.sender.name">Mailer</parameter>
+
+        <parameter key="ahlin_mailer.default.info.email">info@my-domain</parameter>
 
         <parameter key="ahlin_mailer.default.mailer.class">Ahlin\Bundle\MailerBundle\Mailer\Mailer</parameter>
         <parameter key="ahlin_mailer.default.factory.class">Ahlin\Bundle\MailerBundle\Factory\MailFactory</parameter>
@@ -32,6 +36,7 @@
             <argument>%ahlin_mailer.default.home_url%</argument>
             <argument>%ahlin_mailer.default.logo_url%</argument>
             <argument>%ahlin_mailer.default.unsubscribe_url%</argument>
+            <argument>%ahlin_mailer.default.info.email%</argument>
         </service>
 
         <service id="ahlin_mailer.mailer" class="%ahlin_mailer.default.mailer.class%" public="false">
@@ -43,7 +48,7 @@
             <argument>%ahlin_mailer.default.template%</argument>
         </service>
 
-        <service id="ahlin_mailer.mailing" class="Ahlin\Bundle\MailerBundle\Mailing" public="true">
+        <service id="ahlin_mailer.mailing" class="Ahlin\Bundle\MailerBundle\Mailer\Mailing" public="true">
             <argument type="service" id="ahlin_mailer.mailer" />
             <argument type="service" id="ahlin_mailer.mail_factory" />
         </service>

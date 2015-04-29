@@ -4,7 +4,7 @@ namespace spec\Ahlin\Bundle\MailerBundle;
 
 use Ahlin\Bundle\MailerBundle\Factory\MailFactory;
 use Ahlin\Bundle\MailerBundle\Mailer\MailerInterface;
-use Ahlin\Bundle\MailerBundle\Mailing;
+use Ahlin\Bundle\MailerBundle\Mailer\Mailing;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -20,7 +20,8 @@ class MailingSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Ahlin\Bundle\MailerBundle\Mailing');
+        $this->shouldHaveType('Ahlin\Bundle\MailerBundle\Mailer\Mailing');
+        $this->shouldImplement('Ahlin\Bundle\MailerBundle\Mailer\MailingInterface');
     }
 
     function it_returns_a_mailer()

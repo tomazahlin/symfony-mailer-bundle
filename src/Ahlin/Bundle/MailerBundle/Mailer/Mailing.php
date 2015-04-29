@@ -1,16 +1,14 @@
 <?php
 
-namespace Ahlin\Bundle\MailerBundle;
+namespace Ahlin\Bundle\MailerBundle\Mailer;
 
-use Ahlin\Bundle\MailerBundle\Mailer\MailerInterface;
-use Ahlin\Bundle\MailerBundle\Mailer\QueueableMailerInterface;
 use Ahlin\Bundle\MailerBundle\Factory\MailFactory;
 
 /**
  * Class Mailing is a composite class which holds Mailer and the Factory,
  * so only one service is publicly exposed and to be injected in other services
  */
-class Mailing
+class Mailing implements MailingInterface
 {
     /**
      * @var MailerInterface
@@ -34,8 +32,7 @@ class Mailing
     }
 
     /**
-     * Get mailer
-     * @return MailerInterface|QueueableMailerInterface
+     * {@inheritDoc}
      */
     public function getMailer()
     {
@@ -43,8 +40,7 @@ class Mailing
     }
 
     /**
-     * Get mail factory
-     * @return MailFactory
+     * {@inheritDoc}
      */
     public function getFactory()
     {

@@ -20,16 +20,12 @@ class AhlinMailerExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
+        $this->processConfiguration($configuration, $configs);
 
         $fileLocator = new FileLocator(__DIR__.'/../Resources/config');
 
         $loader = new Loader\XmlFileLoader($container, $fileLocator);
         $loader->load('services.xml');
-
-        #if ($this->getParameter('kernel.environment') === 'test') {
-        #    $loader->load('services_test.xml');
-        #}
     }
 
     /**

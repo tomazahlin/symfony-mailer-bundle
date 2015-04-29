@@ -5,7 +5,6 @@ namespace Ahlin\Bundle\MailerBundle\Factory;
 use Ahlin\Bundle\MailerBundle\Model\Interfaces\MailUserInterface;
 use Ahlin\Bundle\MailerBundle\Model\AdvancedMail;
 use Ahlin\Bundle\MailerBundle\Model\SimpleMail;
-use Ahlin\Bundle\MailerBundle\Model\User;
 
 /**
  * Class MailFactory is responsible of creating all new Mail instances.

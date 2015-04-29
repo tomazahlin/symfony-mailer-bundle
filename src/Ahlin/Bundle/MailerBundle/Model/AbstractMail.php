@@ -4,7 +4,6 @@ namespace Ahlin\Bundle\MailerBundle\Model;
 
 use Ahlin\Bundle\MailerBundle\Model\Interfaces\MailInterface;
 use Ahlin\Bundle\MailerBundle\Model\Interfaces\MailUserInterface;
-use Ahlin\Bundle\MailerBundle\Model\Interfaces\SwiftTransformationInterface;
 use Swift_Message;
 use UnexpectedValueException;
 

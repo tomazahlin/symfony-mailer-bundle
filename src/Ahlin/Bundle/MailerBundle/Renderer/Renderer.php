@@ -48,6 +48,11 @@ class Renderer implements RendererInterface
     protected $unsubscribeUrl;
 
     /**
+     * @var string
+     */
+    protected $infoEmail;
+
+    /**
      * @var array
      */
     private $mappings = array();
@@ -61,6 +66,7 @@ class Renderer implements RendererInterface
      * @param $homeUrl
      * @param $logoUrl
      * @param $unsubscribeUrl
+     * @param $infoEmail
      */
     public function __construct(
         EngineInterface $templating,
@@ -69,7 +75,8 @@ class Renderer implements RendererInterface
         $title,
         $homeUrl,
         $logoUrl,
-        $unsubscribeUrl
+        $unsubscribeUrl,
+        $infoEmail
     ) {
         $this->templating = $templating;
         $this->defaultContentType = $defaultContentType;
@@ -78,6 +85,7 @@ class Renderer implements RendererInterface
         $this->homeUrl = $homeUrl;
         $this->logoUrl = $logoUrl;
         $this->unsubscribeUrl = $unsubscribeUrl;
+        $this->infoEmail = $infoEmail;
     }
 
     /**
@@ -103,7 +111,8 @@ class Renderer implements RendererInterface
         $mail->addParameter('_title', $this->title)
              ->addParameter('_homeUrl', $this->homeUrl)
              ->addParameter('_logoUrl', $this->logoUrl)
-             ->addParameter('_unsubscribeUrl', $this->unsubscribeUrl);
+             ->addParameter('_unsubscribeUrl', $this->unsubscribeUrl)
+             ->addParameter('_infoEmail', $this->infoEmail);
 
         return $mail->transform(
             $this->templating,

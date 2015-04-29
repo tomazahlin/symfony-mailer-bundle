@@ -2,7 +2,7 @@
 
 namespace Ahlin\Bundle\MailerBundle\Tests\Controller;
 
-use Ahlin\Bundle\MailerBundle\Mailing;
+use Ahlin\Bundle\MailerBundle\Mailer\Mailing;
 use Ahlin\Bundle\MailerBundle\Model\Attachment;
 use Ahlin\Bundle\MailerBundle\Model\User;
 use Symfony\Component\HttpFoundation\Response;

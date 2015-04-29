@@ -18,7 +18,7 @@ class RendererSpec extends ObjectBehavior
 {
     function let(EngineInterface $templating)
     {
-        $this->beConstructedWith($templating, 'text/html', 'default', 'Title', 'https://localhost', 'https://localhost/img/test.png', 'https://localhost/unsubscribe');
+        $this->beConstructedWith($templating, 'text/html', 'default', 'Title', 'https://localhost', 'https://localhost/img/test.png', 'https://localhost/unsubscribe', 'info@test.com');
     }
 
     function it_is_initializable()
