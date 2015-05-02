@@ -13,6 +13,8 @@
 
 .buildpath
 
+.idea
+
 Vagrantfile
 .vagrant
 

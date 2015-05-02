@@ -18,7 +18,7 @@ notifications:
 before_script:
   # Update and install apache2 with extensions
   - sudo apt-get update > /dev/null
-  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl php-ssl
+  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
   # Set up virtual hosts
   - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
   - sudo /etc/init.d/apache2 restart
