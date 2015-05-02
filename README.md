@@ -1,5 +1,7 @@
 # Symfony2 Mailer Bundle
 
+[![Build Status](https://travis-ci.org/tomazahlin/symfony-mailer-bundle.svg?branch=master)](https://travis-ci.org/tomazahlin/symfony-mailer-bundle)
+
 This is the explanation of how the bundle is structured and also an installation / example tutorial for the bundle.
 
 Mailer bundle allows you to write very clean code when sending emails. By default it uses Swiftmailer, but if you want, you can
