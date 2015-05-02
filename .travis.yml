@@ -1,28 +1,18 @@
 language: php
 
 php:
-  - 5.3
-  - 5.4
   - 5.5
-  - 5.6
-  - 7.0
-  - hhvm
 
 matrix:
   allow_failures:
-    - php: [7.0, hhvm]
+    - php: [7.0, hhvm, nightly]
 
 notifications:
   email: tomaz.ahlin2@gmail.com
 
 before_script:
-  # Update and install apache2 with extensions
-  - sudo apt-get update > /dev/null
-  - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
-  # Set up virtual hosts
-  - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
-  - sudo /etc/init.d/apache2 restart
   # Update composer and install dependencies
+  - curl -sS https://getcomposer.org/installer | php
   - php composer.phar self-update
   - php composer.phar install --dev --prefer-dist
 
