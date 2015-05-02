@@ -39,4 +39,3 @@ class RendererMock extends Renderer
         // No implementation
     }
 }
-
