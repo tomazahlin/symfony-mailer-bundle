@@ -1,11 +1,7 @@
 language: php
 
 php:
-  - 5.5
-
-matrix:
-  allow_failures:
-    - php: [7.0, hhvm, nightly]
+  - 5.4.4
 
 notifications:
   email: tomaz.ahlin2@gmail.com
