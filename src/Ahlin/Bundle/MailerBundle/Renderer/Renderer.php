@@ -108,11 +108,11 @@ class Renderer implements RendererInterface
         isset($data['contentType']) ? $contentType = $data['contentType'] : $contentType = $this->defaultContentType;
 
         // Adds default parameters to the view
-        $mail->addParameter('_title', $this->title)
-             ->addParameter('_homeUrl', $this->homeUrl)
-             ->addParameter('_logoUrl', $this->logoUrl)
-             ->addParameter('_unsubscribeUrl', $this->unsubscribeUrl)
-             ->addParameter('_infoEmail', $this->infoEmail);
+        $mail->addParameter('_title', $this->title);
+        $mail->addParameter('_homeUrl', $this->homeUrl);
+        $mail->addParameter('_logoUrl', $this->logoUrl);
+        $mail->addParameter('_unsubscribeUrl', $this->unsubscribeUrl);
+        $mail->addParameter('_infoEmail', $this->infoEmail);
 
         return $mail->transform(
             $this->templating,
