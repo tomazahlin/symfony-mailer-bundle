@@ -1,7 +1,7 @@
 language: php
 
 php:
-  - 5.4.4
+  - 5.4
 
 notifications:
   email: tomaz.ahlin2@gmail.com
