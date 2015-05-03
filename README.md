@@ -126,4 +126,5 @@ your code will be much shorter and cleaner. And the service definition for the c
 </service>
 ```
 
-
+For any questions or issues regarding this bundle, please do not hesitate to ask. Feel free to create your own forked version
+or submit any pull requests.
