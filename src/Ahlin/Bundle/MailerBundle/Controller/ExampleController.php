@@ -72,13 +72,18 @@ class ExampleController
         // Some test object, whose values we want to display in the template
         $test = new \stdClass();
 
-        // Creates the mail, note that the message itself is defined in template
+        // Creates the mail
         $mail = $this->mailing->getFactory()
-            ->createAdvanced($sender, 'Test subject')
+            ->createAdvanced($sender, 'Test subject', 'default', 105) // Sender, subject, template alias, priority
             ->addAttachment($attachment)
             ->addParameter('test', $test)
             ->addRecipient($recipient)
             ->addBccRecipients($bcc);
+
+        // For example if user wrote a message to another user, you would add it as a parameter, and then define inside
+        // template where it is rendered.
+        $message = 'Hello, how are you?';
+        $mail->addParameter('message', $message);
 
         // Send email (Swiftmailer can also add it to spool, if you configure it like that)
         $this->mailing->getMailer()->send($mail);

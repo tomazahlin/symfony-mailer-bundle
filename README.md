@@ -37,7 +37,7 @@ public function registerBundles()
 
 ``` bash
 bin/phpunit
-bin/behat
+bin/phpspec run
 ```
     
 ## Usage
@@ -80,8 +80,50 @@ To define your service, you should inject the ahlin_mailer.mailing service:
 </service>
 ```
 
-Templates
+## Templates
 
 To override anything in the bundle, you can of course use bundle inheritance, but for simplicity you can also
 override some classes by overriding some of the default parameters of the bundle. And to override templates you
 can define your custom templates in app/Resources.
+
+The bundle is packaged with a default responsive html template:
+
+    - Resources/views/Mail/default.html.twig
+
+You can easily replace the template, by defining your own in app/Resources folder or you can use bundle inheritance
+to do the same.
+
+To define your own templates, the bundle uses Open for extension / closed for modification solid principle. To
+define your own templates, you need to create a class and tag it with "ahlin_mailer.mapping". Let's say you wanted to
+create a mapping for your UserBundle.
+
+Create a class which implements TemplateMappingInterface.
+
+``` php
+namespace Company\Bundle\UserBundle\Mapping;
+
+use Ahlin\Bundle\MailerBundle\Mapping\TemplateMappingInterface;
+
+class UserMapping implements TemplateMappingInterface
+{
+    public function getMappings()
+    {
+        return array(
+            'registration'      => array('view' => 'CompanyUserBundle:Mail:registration.html.twig',     'contentType' => 'text/html'),
+            'activation'        => array('view' => 'CompanyUserBundle:Mail:activation.html.twig',       'contentType' => 'text/html'),
+            'forgot_password'   => array('view' => 'CompanyUserBundle:Mail:forgot_password.html.twig',  'contentType' => 'text/html'),
+        );
+    }
+}
+```
+
+As you can see, it is only a mapping between aliases and their paths, so when you need to specify which template you want to use,
+your code will be much shorter and cleaner. And the service definition for the container would look like this:
+
+``` xml
+<service id="my_user_bundle.user_mapping" class="Company\Bundle\UserBundle\Mapping\UserMapping" public="false">
+    <tag name="ahlin_mailer.mapping" />
+</service>
+```
+
+
