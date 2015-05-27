@@ -9,6 +9,7 @@ extensions:
 
 code_coverage:
   blacklist:
+    - src/Ahlin/Bundle/MailerBundle/Context
     - src/Ahlin/Bundle/MailerBundle/Resources
     - src/Ahlin/Bundle/MailerBundle/Tests
   format:

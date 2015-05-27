@@ -16,7 +16,7 @@ class MailerTemplateMappingPassTest extends AbstractContainerBuilderTestCase
     {
         $renderer = new RendererMock();
         $this->registerService('ahlin_mailer.renderer', $renderer);
-        $this->registerService('ahlin_mailer.test_mapping', 'Ahlin\Bundle\MailerBundle\Mapping\DefaultMapping')
+        $this->registerService('ahlin_mailer.test_mapping', 'Ahlin\Mailer\Mapping\DefaultMapping')
              ->addTag('ahlin_mailer.mapping');
         $this->assertEquals(0, count($renderer->visibleMappings));
 

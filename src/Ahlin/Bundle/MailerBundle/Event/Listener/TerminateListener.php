@@ -2,8 +2,8 @@
 
 namespace Ahlin\Bundle\MailerBundle\Event\Listener;
 
-use Ahlin\Bundle\MailerBundle\Mailer\MailerInterface;
-use Ahlin\Bundle\MailerBundle\Mailer\QueueableMailerInterface;
+use Ahlin\Mailer\MailerInterface;
+use Ahlin\Mailer\QueueableMailerInterface;
 
 /**
  * Class TerminateListener listens to kernel.terminate event and sends (forwards) all the queued mails to the mailer (ex. Swiftmailer)

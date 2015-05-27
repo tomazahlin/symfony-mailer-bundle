@@ -50,7 +50,7 @@ It exposes one service, so you only have to inject one dependency, preferably th
 ``` php
 namespace Company\App;
 
-use Ahlin\Bundle\MailerBundle\Mailer\MailingInterface;
+use Ahlin\Mailer\MailingInterface;
 
 class MyService
 {
@@ -102,7 +102,7 @@ Create a class which implements TemplateMappingInterface.
 ``` php
 namespace Company\Bundle\UserBundle\Mapping;
 
-use Ahlin\Bundle\MailerBundle\Mapping\TemplateMappingInterface;
+use Ahlin\Mailer\Mapping\TemplateMappingInterface;
 
 class UserMapping implements TemplateMappingInterface
 {

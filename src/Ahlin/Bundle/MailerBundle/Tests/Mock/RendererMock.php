@@ -2,9 +2,9 @@
 
 namespace Ahlin\Bundle\MailerBundle\Tests\Mock;
 
-use Ahlin\Bundle\MailerBundle\Mapping\TemplateMappingInterface;
-use Ahlin\Bundle\MailerBundle\Model\Interfaces\MailInterface;
-use Ahlin\Bundle\MailerBundle\Renderer\Renderer;
+use Ahlin\Mailer\Mapping\TemplateMappingInterface;
+use Ahlin\Mailer\Model\Interfaces\MailInterface;
+use Ahlin\Mailer\Renderer\Renderer;
 
 class RendererMock extends Renderer
 {
