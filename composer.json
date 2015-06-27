@@ -12,16 +12,15 @@
     ],
     "require": {
         "php": ">=5.4",
-        "symfony/symfony": "2.6.*",
+        "symfony/framework-bundle": "2.3",
         "symfony/swiftmailer-bundle": "~2.3",
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
         "sensio/framework-extra-bundle": "~3.0,>=3.0.2"
 
     },
     "require-dev": {
-        "ext-xdebug": ">=2.1.4",
+        "phpunit/phpunit": "~4.7",
         "phpspec/phpspec": "~2.0",
-        "henrikbjorn/phpspec-code-coverage": "~1.0",
         "matthiasnoback/symfony-config-test": "0.*",
         "matthiasnoback/symfony-dependency-injection-test": "0.*"
     },

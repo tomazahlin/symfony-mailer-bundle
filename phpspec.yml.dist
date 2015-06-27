@@ -4,9 +4,6 @@ suites:
 
 formatter.name: pretty
 
-extensions:
-  - PhpSpec\Extension\CodeCoverageExtension
-
 code_coverage:
   blacklist:
     - src/Ahlin/Bundle/MailerBundle/Context

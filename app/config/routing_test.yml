@@ -1,3 +1,0 @@
-service_base_api:
-    resource: "@AhlinMailerBundle/Resources/config/routing_test.yml"
-    prefix:   /test
