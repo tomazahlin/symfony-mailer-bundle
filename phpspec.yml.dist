@@ -10,8 +10,7 @@ code_coverage:
     - src/Ahlin/Bundle/MailerBundle/Resources
     - src/Ahlin/Bundle/MailerBundle/Tests
   format:
-    #- html
     - clover
   output:
-    #html: test/build/coverage
     clover: test/build/coverage.xml
+    
