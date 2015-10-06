@@ -15,7 +15,7 @@
         "symfony/framework-bundle": "~2.6",
         "symfony/swiftmailer-bundle": "~2.3",
         "sensio/distribution-bundle": "~3.0,>=3.0.12",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2"
+        "sensio/framework-extra-bundle": "~4.0"
 
     },
     "require-dev": {
