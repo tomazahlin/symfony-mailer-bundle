@@ -88,7 +88,7 @@ abstract class AbstractMail implements MailInterface
 
     /**
      * Creates new instance of Swift_Message
-     * @return \Swift_Mime_SimpleMessage
+     * @return \Swift_Message
      */
     protected function createSwiftMessage()
     {

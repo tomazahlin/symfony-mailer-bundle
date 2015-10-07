@@ -24,7 +24,7 @@ class AhlinMailerExtensionTest extends AbstractExtensionTestCase
     public function testParameters()
     {
         $this->load();
-        # $this->assertContainerBuilderHasParameter('ahlin_mailer.parameter'); ...
+        // $this->assertContainerBuilderHasParameter('ahlin_mailer.parameter'); ...
     }
 
     /**

@@ -8,19 +8,20 @@
 
         <parameter key="ahlin_mailer.default.content_type" type="string">text/html</parameter>
         <parameter key="ahlin_mailer.default.template" type="constant">Ahlin\Mailer\Mapping\DefaultMapping::TEMPLATE</parameter>
-        <parameter key="ahlin_mailer.default.title" type="string">Mail title</parameter>
-
-        <parameter key="ahlin_mailer.default.home_url" type="string">https://localhost</parameter>
-        <parameter key="ahlin_mailer.default.logo_url" type="string">https://localhost/img/logo.png</parameter>
-        <parameter key="ahlin_mailer.default.unsubscribe_url" type="string">https://localhost/unsubscribe</parameter>
 
         <parameter key="ahlin_mailer.default.sender.email">mailer@my-domain</parameter>
         <parameter key="ahlin_mailer.default.sender.name">Mailer</parameter>
 
-        <parameter key="ahlin_mailer.default.info.email">info@my-domain</parameter>
-
         <parameter key="ahlin_mailer.default.mailer.class">Ahlin\Mailer\Mailer</parameter>
         <parameter key="ahlin_mailer.default.factory.class">Ahlin\Mailer\Factory\MailFactory</parameter>
+
+        <parameter type="collection" key="ahlin_mailer.default.parameters">
+            <parameter key="_title" type="string">Mail title</parameter>
+            <parameter key="_homeUrl" type="string">https://localhost</parameter>
+            <parameter key="_logoUrl" type="string">https://localhost/img/logo.png</parameter>
+            <parameter key="_unsubscribeUrl" type="string">https://localhost/unsubscribe</parameter>
+            <parameter key="_infoEmail" type="string">info@my-domain</parameter>
+        </parameter>
 
     </parameters>
 
@@ -32,11 +33,7 @@
             <argument type="service" id="ahlin_mailer.templating" />
             <argument>%ahlin_mailer.default.content_type%</argument>
             <argument>%ahlin_mailer.default.template%</argument>
-            <argument>%ahlin_mailer.default.title%</argument>
-            <argument>%ahlin_mailer.default.home_url%</argument>
-            <argument>%ahlin_mailer.default.logo_url%</argument>
-            <argument>%ahlin_mailer.default.unsubscribe_url%</argument>
-            <argument>%ahlin_mailer.default.info.email%</argument>
+            <argument>%ahlin_mailer.default.parameters%</argument>
         </service>
 
         <service id="ahlin_mailer.mailer" class="%ahlin_mailer.default.mailer.class%" public="false">

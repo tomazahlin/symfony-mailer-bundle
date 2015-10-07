@@ -17,10 +17,14 @@ class RendererMock extends Renderer
     {
         $this->defaultContentType = 'text';
         $this->defaultTemplate = 'default';
-        $this->title = 'Title';
-        $this->homeUrl = 'https://localhost';
-        $this->logoUrl = 'https://localhost/img/logo.png';
-        $this->unsubscribeUrl = 'https://localhost/unsubscribe';
+
+        $this->emailParameters = array(
+            '_title' => 'Title',
+            '_homeUrl' => 'https://localhost',
+            '_logoUrl' => 'https://localhost/img/logo.png',
+            '_unsubscribeUrl' => 'https://localhost/unsubscribe',
+            '_infoEmail' => 'test@localhost',
+        );
     }
 
     /**

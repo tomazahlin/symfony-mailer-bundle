@@ -28,29 +28,9 @@ class Renderer implements RendererInterface
     protected $defaultTemplate;
 
     /**
-     * @var string
+     * @var array
      */
-    protected $title;
-
-    /**
-     * @var string
-     */
-    protected $homeUrl;
-
-    /**
-     * @var string
-     */
-    protected $logoUrl;
-
-    /**
-     * @var string
-     */
-    protected $unsubscribeUrl;
-
-    /**
-     * @var string
-     */
-    protected $infoEmail;
+    protected $emailParameters;
 
     /**
      * @var array
@@ -62,30 +42,18 @@ class Renderer implements RendererInterface
      * @param EngineInterface $templating
      * @param $defaultContentType
      * @param $defaultTemplate
-     * @param $title
-     * @param $homeUrl
-     * @param $logoUrl
-     * @param $unsubscribeUrl
-     * @param $infoEmail
+     * @param array $emailParameters
      */
     public function __construct(
         EngineInterface $templating,
         $defaultContentType,
         $defaultTemplate,
-        $title,
-        $homeUrl,
-        $logoUrl,
-        $unsubscribeUrl,
-        $infoEmail
+        array $emailParameters
     ) {
         $this->templating = $templating;
         $this->defaultContentType = $defaultContentType;
         $this->defaultTemplate = $defaultTemplate;
-        $this->title = $title;
-        $this->homeUrl = $homeUrl;
-        $this->logoUrl = $logoUrl;
-        $this->unsubscribeUrl = $unsubscribeUrl;
-        $this->infoEmail = $infoEmail;
+        $this->emailParameters = $emailParameters;
     }
 
     /**
@@ -103,28 +71,31 @@ class Renderer implements RendererInterface
      */
     public function render(MailInterface $mail)
     {
-        $data = $this->getViewData($mail->getTemplate());
+        $templates = $this->getViewData($mail->getTemplate());
 
-        isset($data['contentType']) ? $contentType = $data['contentType'] : $contentType = $this->defaultContentType;
+        // Set default content type for each template, if not present
+        foreach ($templates as &$template) {
+            if (!isset($template['contentType'])) {
+                $template['contentType'] = $this->defaultContentType;
+            }
+        }
 
-        // Adds default parameters to the view
-        $mail->addParameter('_title', $this->title);
-        $mail->addParameter('_homeUrl', $this->homeUrl);
-        $mail->addParameter('_logoUrl', $this->logoUrl);
-        $mail->addParameter('_unsubscribeUrl', $this->unsubscribeUrl);
-        $mail->addParameter('_infoEmail', $this->infoEmail);
+        // Adds default email parameters to the view
+        foreach($this->emailParameters as $name => $value) {
+            $mail->addParameter($name, $value);
+        }
 
         return $mail->transform(
             $this->templating,
-            $data['view'],
-            $contentType
+            $templates
         );
     }
 
     /**
      * Get view path and content type
+     *
      * @param $template
-     * @return string
+     * @return array
      * @throws MailerException
      */
     private function getViewData($template)

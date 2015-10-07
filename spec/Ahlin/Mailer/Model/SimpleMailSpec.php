@@ -58,7 +58,7 @@ class SimpleMailSpec extends ObjectBehavior
         $html = '<html><head></head><body>Test</body></html>';
         $templating->render(Argument::type('string'), Argument::type('array'))->willReturn($html);
 
-        $message = $this->transform($templating, 'default', 'text/html');
+        $message = $this->transform($templating, array(array('view' => 'default', 'contentType' => 'text/html')));
 
         $message->shouldHaveType('\Swift_Message');
         $message->getSubject()->shouldBeLike(self::SUBJECT);

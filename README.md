@@ -126,5 +126,15 @@ your code will be much shorter and cleaner. And the service definition for the c
 </service>
 ```
 
+You can define (override) the parameters which are always passed to the email templates, by overriding the parameter:
+
+``` xml
+<parameter type="collection" key="ahlin_mailer.default.parameters">
+    <parameter key="myHomepageUrl" type="string">https://localhost</parameter>
+</parameter>
+```
+
+In the twig template, you can access it with {{ myHomepageUrl }}.
+
 For any questions or issues regarding this bundle, please do not hesitate to ask. Feel free to create your own forked version
 or submit any pull requests.

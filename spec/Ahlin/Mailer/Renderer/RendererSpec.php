@@ -18,7 +18,18 @@ class RendererSpec extends ObjectBehavior
 {
     function let(EngineInterface $templating)
     {
-        $this->beConstructedWith($templating, 'text/html', 'default', 'Title', 'https://localhost', 'https://localhost/img/test.png', 'https://localhost/unsubscribe', 'info@test.com');
+        $this->beConstructedWith(
+            $templating,
+            'text/html',
+            'default',
+            array(
+                '_title' => 'Title',
+                '_homeUrl' => 'https://localhost',
+                '_logoUrl' => 'https://localhost/img/logo.png',
+                '_unsubscribeUrl' => 'https://localhost/unsubscribe',
+                '_infoEmail' => 'test@localhost',
+            )
+        );
     }
 
     function it_is_initializable()
@@ -37,7 +48,7 @@ class RendererSpec extends ObjectBehavior
         $template = 'test';
         $view = 'TestBundle:Mail:test.html.twig';
         $contentType = 'text';
-        $testMapping->getMappings()->willReturn(array($template => array('view' => $view, 'contentType' => $contentType)));
+        $testMapping->getMappings()->willReturn(array($template => array(array('view' => $view, 'contentType' => $contentType))));
 
         $this->addMapping(new DefaultMapping());
         $this->addMapping($testMapping);
@@ -46,9 +57,7 @@ class RendererSpec extends ObjectBehavior
         $mail->getTemplate()->willReturn('test');
         $mail->transform(
             Argument::type('Symfony\Component\Templating\EngineInterface'),
-            $view,
-            $contentType
-        )->willReturn(new \Swift_Message());
+            array(array('view' => $view, 'contentType' => $contentType)))->willReturn(new \Swift_Message());
 
         $message = $this->render($mail);
         $message->shouldHaveType('\Swift_Message');
@@ -62,9 +71,7 @@ class RendererSpec extends ObjectBehavior
         $mail->getTemplate()->willReturn('test');
         $mail->transform(
             Argument::type('Symfony\Component\Templating\EngineInterface'),
-            DefaultMapping::VIEW,
-            DefaultMapping::CONTENT_TYPE
-        )->willReturn(new \Swift_Message());
+            array(array('view' => DefaultMapping::VIEW, 'contentType' => DefaultMapping::CONTENT_TYPE)))->willReturn(new \Swift_Message());
 
         $message = $this->render($mail);
         $message->shouldHaveType('\Swift_Message');

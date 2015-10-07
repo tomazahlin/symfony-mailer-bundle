@@ -16,6 +16,6 @@ class DefaultMapping implements TemplateMappingInterface
      */
     public function getMappings()
     {
-        return array(self::TEMPLATE => array('view' => self::VIEW, 'contentType' => self::CONTENT_TYPE));
+        return array(self::TEMPLATE => array(array('view' => self::VIEW, 'contentType' => self::CONTENT_TYPE)));
     }
 }

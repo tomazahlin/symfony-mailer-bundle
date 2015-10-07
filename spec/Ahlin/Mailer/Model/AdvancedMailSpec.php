@@ -102,7 +102,7 @@ class AdvancedMailSpec extends ObjectBehavior
         $this->addBccRecipients([$recipient1, $recipient2]);
         $this->addAttachment($attachment);
 
-        $message = $this->transform($templating, 'default', 'text/html');
+        $message = $this->transform($templating, array(array('view' => 'default', 'contentType' => 'text/html')));
 
         $message->shouldHaveType('\Swift_Message');
         $message->getSubject()->shouldBeLike(self::SUBJECT);

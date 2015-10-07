@@ -132,7 +132,7 @@ class AdvancedMail extends AbstractMail
     /**
      * {@inheritdoc}
      */
-    public function transform(EngineInterface $templating, $templatePath, $contentType)
+    public function transform(EngineInterface $templating, array $templates)
     {
         $message = $this->createSwiftMessage();
 
@@ -149,7 +149,11 @@ class AdvancedMail extends AbstractMail
             $message->attach(\Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType()));
         }
 
-        $message->setBody($templating->render($templatePath, $this->parameters), $contentType);
+        $message->setBody($templating->render($templates[0]['view'], $this->parameters), $templates[0]['contentType']);
+
+        for ($i = 1; $i < count($templates); $i++) {
+            $message->addPart($templating->render($templates[$i]['view'], $this->parameters), $templates[$i]['contentType']);
+        }
 
         return $message;
     }

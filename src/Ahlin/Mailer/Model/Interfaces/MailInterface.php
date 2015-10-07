@@ -10,11 +10,10 @@ interface MailInterface extends MailParameterInterface
     /**
      * Transform MailInterface to Swift_Mime_Message interface
      * @param EngineInterface $templating
-     * @param string $templatePath - Full template path for the EngineInterface to use
-     * @param $contentType
+     * @param array $templates
      * @return Swift_Mime_Message
      */
-    public function transform(EngineInterface $templating, $templatePath, $contentType);
+    public function transform(EngineInterface $templating, array $templates);
 
     /**
      * Get template name
