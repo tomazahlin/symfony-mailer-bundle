@@ -57,6 +57,8 @@ class AdvancedMail extends AbstractMail
         foreach ($recipients as $recipient) {
             $this->addRecipient($recipient);
         }
+        
+        return $this;
     }
 
     /**
@@ -67,6 +69,8 @@ class AdvancedMail extends AbstractMail
     {
         $recipient = $this->getUserModel($recipient);
         $this->recipients->add($recipient);
+        
+        return $this;
     }
 
     /**
@@ -88,6 +92,8 @@ class AdvancedMail extends AbstractMail
         foreach ($recipients as $recipient) {
             $this->addBccRecipient($recipient);
         }
+        
+        return $this;
     }
 
     /**
@@ -99,6 +105,8 @@ class AdvancedMail extends AbstractMail
     {
         $recipient = $this->getUserModel($recipient);
         $this->bccRecipients->add($recipient);
+        
+        return $this;
     }
 
     /**
@@ -118,6 +126,8 @@ class AdvancedMail extends AbstractMail
     public function addAttachment(Attachment $attachment)
     {
         $this->attachments->add($attachment);
+        
+        return $this;
     }
 
     /**
