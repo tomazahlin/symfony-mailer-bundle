@@ -2,6 +2,7 @@
 
 namespace spec\Ahlin\Mailer\Model;
 
+use Ahlin\Mailer\Filter\FilterChainInterface;
 use Ahlin\Mailer\Model\Attachment;
 use Ahlin\Mailer\Model\Interfaces\MailUserInterface;
 use Ahlin\Mailer\Model\AdvancedMail;
@@ -82,7 +83,7 @@ class AdvancedMailSpec extends ObjectBehavior
         $this->getBccRecipients()->count()->shouldBe(3);
     }
 
-    function it_can_be_transformed(EngineInterface $templating, $filterChain, MailUserInterface $recipient1, MailUserInterface $recipient2, Attachment $attachment)
+    function it_can_be_transformed(EngineInterface $templating, FilterChainInterface $filterChain, MailUserInterface $recipient1, MailUserInterface $recipient2, Attachment $attachment)
     {
         $html = '<html><head></head><body>Test</body></html>';
         $templating->render(Argument::type('string'), Argument::type('array'))->willReturn($html);

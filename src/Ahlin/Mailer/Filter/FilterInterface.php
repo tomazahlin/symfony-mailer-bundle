@@ -12,8 +12,8 @@ interface FilterInterface
      *    This means the html (body) will have some paths replaced, and in the same time some attachments must be added to the Swift_Message.
      *
      * @param string $body
-     * @param \Swift_Message $message
-     * @return string
+     * @param \Swift_Message $message (can be modified, as objects are passed as reference)
+     * @return string (modified body)
      */
     public function apply($body, \Swift_Message $message);
 }

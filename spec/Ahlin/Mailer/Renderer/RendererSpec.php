@@ -17,10 +17,11 @@ use Symfony\Component\Templating\EngineInterface;
  */
 class RendererSpec extends ObjectBehavior
 {
-    function let(EngineInterface $templating)
+    function let(EngineInterface $templating, FilterChainInterface $filterChain)
     {
         $this->beConstructedWith(
             $templating,
+            $filterChain,
             'text/html',
             'default',
             array(
