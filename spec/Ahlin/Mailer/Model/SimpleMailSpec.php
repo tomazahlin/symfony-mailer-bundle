@@ -2,6 +2,7 @@
 
 namespace spec\Ahlin\Mailer\Model;
 
+use Ahlin\Mailer\Filter\FilterChainInterface;
 use Ahlin\Mailer\Model\Interfaces\MailUserInterface;
 use Ahlin\Mailer\Model\SimpleMail;
 use PhpSpec\ObjectBehavior;
@@ -53,12 +54,12 @@ class SimpleMailSpec extends ObjectBehavior
         $this->getPriority()->shouldBe(self::PRIORITY);
     }
 
-    function it_can_be_transformed(EngineInterface $templating)
+    function it_can_be_transformed(EngineInterface $templating, FilterChainInterface $filterChain)
     {
         $html = '<html><head></head><body>Test</body></html>';
         $templating->render(Argument::type('string'), Argument::type('array'))->willReturn($html);
 
-        $message = $this->transform($templating, array(array('view' => 'default', 'contentType' => 'text/html')));
+        $message = $this->transform($templating, $filterChain, array(array('view' => 'default', 'contentType' => 'text/html')));
 
         $message->shouldHaveType('\Swift_Message');
         $message->getSubject()->shouldBeLike(self::SUBJECT);

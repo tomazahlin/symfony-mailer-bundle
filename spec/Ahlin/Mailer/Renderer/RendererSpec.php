@@ -2,6 +2,7 @@
 
 namespace spec\Ahlin\Mailer\Renderer;
 
+use Ahlin\Mailer\Filter\FilterChainInterface;
 use Ahlin\Mailer\Mapping\DefaultMapping;
 use Ahlin\Mailer\Mapping\TemplateMappingInterface;
 use Ahlin\Mailer\Model\Interfaces\MailInterface;
@@ -43,7 +44,7 @@ class RendererSpec extends ObjectBehavior
         $this->addMapping(new DefaultMapping());
     }
 
-    function it_uses_the_given_template_when_found(MailInterface $mail, TemplateMappingInterface $testMapping)
+    function it_uses_the_given_template_when_found(MailInterface $mail, TemplateMappingInterface $testMapping, FilterChainInterface $filterChain)
     {
         $template = 'test';
         $view = 'TestBundle:Mail:test.html.twig';
@@ -57,13 +58,14 @@ class RendererSpec extends ObjectBehavior
         $mail->getTemplate()->willReturn('test');
         $mail->transform(
             Argument::type('Symfony\Component\Templating\EngineInterface'),
+            $filterChain,
             array(array('view' => $view, 'contentType' => $contentType)))->willReturn(new \Swift_Message());
 
         $message = $this->render($mail);
         $message->shouldHaveType('\Swift_Message');
     }
 
-    function it_falls_back_to_defaults_during_rendering_when_necessary(MailInterface $mail)
+    function it_falls_back_to_defaults_during_rendering_when_necessary(MailInterface $mail, FilterChainInterface $filterChain)
     {
         $this->addMapping(new DefaultMapping());
 
@@ -71,6 +73,7 @@ class RendererSpec extends ObjectBehavior
         $mail->getTemplate()->willReturn('test');
         $mail->transform(
             Argument::type('Symfony\Component\Templating\EngineInterface'),
+            $filterChain,
             array(array('view' => DefaultMapping::VIEW, 'contentType' => DefaultMapping::CONTENT_TYPE)))->willReturn(new \Swift_Message());
 
         $message = $this->render($mail);

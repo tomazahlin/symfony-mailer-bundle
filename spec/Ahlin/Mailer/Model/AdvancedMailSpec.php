@@ -82,7 +82,7 @@ class AdvancedMailSpec extends ObjectBehavior
         $this->getBccRecipients()->count()->shouldBe(3);
     }
 
-    function it_can_be_transformed(EngineInterface $templating, MailUserInterface $recipient1, MailUserInterface $recipient2, Attachment $attachment)
+    function it_can_be_transformed(EngineInterface $templating, $filterChain, MailUserInterface $recipient1, MailUserInterface $recipient2, Attachment $attachment)
     {
         $html = '<html><head></head><body>Test</body></html>';
         $templating->render(Argument::type('string'), Argument::type('array'))->willReturn($html);
@@ -102,7 +102,7 @@ class AdvancedMailSpec extends ObjectBehavior
         $this->addBccRecipients([$recipient1, $recipient2]);
         $this->addAttachment($attachment);
 
-        $message = $this->transform($templating, array(array('view' => 'default', 'contentType' => 'text/html')));
+        $message = $this->transform($templating, $filterChain, array(array('view' => 'default', 'contentType' => 'text/html')));
 
         $message->shouldHaveType('\Swift_Message');
         $message->getSubject()->shouldBeLike(self::SUBJECT);
