@@ -87,6 +87,7 @@ class AdvancedMailSpec extends ObjectBehavior
     {
         $html = '<html><head></head><body>Test</body></html>';
         $templating->render(Argument::type('string'), Argument::type('array'))->willReturn($html);
+        $filterChain->apply(Argument::type('string'), Argument::any())->willReturn($html);
 
         $recipient1->getFullName()->willReturn('Test recipient 1');
         $recipient1->getEmail()->willReturn('recipient1@test.com');
