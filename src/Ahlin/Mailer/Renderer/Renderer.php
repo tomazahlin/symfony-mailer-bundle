@@ -3,6 +3,7 @@
 namespace Ahlin\Mailer\Renderer;
 
 use Ahlin\Mailer\Exception\MailerException;
+use Ahlin\Mailer\Filter\FilterChainInterface;
 use Ahlin\Mailer\Mapping\TemplateMappingInterface;
 use Ahlin\Mailer\Model\Interfaces\MailInterface;
 use Symfony\Component\Templating\EngineInterface;
@@ -16,6 +17,11 @@ class Renderer implements RendererInterface
      * @var EngineInterface
      */
     private $templating;
+
+    /**
+     * @var FilterChainInterface
+     */
+    private $filterChain;
 
     /**
      * @var string
@@ -38,19 +44,23 @@ class Renderer implements RendererInterface
     private $mappings = array();
 
     /**
-     * Constructor
+     * Constructor.
+     * 
      * @param EngineInterface $templating
+     * @param FilterChainInterface $filterChain
      * @param $defaultContentType
      * @param $defaultTemplate
      * @param array $emailParameters
      */
     public function __construct(
         EngineInterface $templating,
+        FilterChainInterface $filterChain,
         $defaultContentType,
         $defaultTemplate,
         array $emailParameters
     ) {
         $this->templating = $templating;
+        $this->filterChain = $filterChain;
         $this->defaultContentType = $defaultContentType;
         $this->defaultTemplate = $defaultTemplate;
         $this->emailParameters = $emailParameters;
@@ -87,6 +97,7 @@ class Renderer implements RendererInterface
 
         return $mail->transform(
             $this->templating,
+            $this->filterChain,
             $templates
         );
     }

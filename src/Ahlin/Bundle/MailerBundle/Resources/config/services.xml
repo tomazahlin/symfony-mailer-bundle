@@ -31,6 +31,7 @@
 
         <service id="ahlin_mailer.renderer" class="Ahlin\Mailer\Renderer\Renderer" public="false">
             <argument type="service" id="ahlin_mailer.templating" />
+            <argument type="service" id="ahlin_mailer.filter_chain" />
             <argument>%ahlin_mailer.default.content_type%</argument>
             <argument>%ahlin_mailer.default.template%</argument>
             <argument>%ahlin_mailer.default.parameters%</argument>
@@ -49,6 +50,8 @@
             <argument type="service" id="ahlin_mailer.mailer" />
             <argument type="service" id="ahlin_mailer.mail_factory" />
         </service>
+
+        <service id="ahlin_mailer.filter_chain" class="Ahlin\Mailer\Filter\FilterChain" public="true" />
 
         <service id="ahlin_mailer.mapping_default" class="Ahlin\Mailer\Mapping\DefaultMapping" public="false">
             <tag name="ahlin_mailer.mapping" />

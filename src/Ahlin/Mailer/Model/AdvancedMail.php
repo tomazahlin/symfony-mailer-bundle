@@ -2,6 +2,7 @@
 
 namespace Ahlin\Mailer\Model;
 
+use Ahlin\Mailer\Filter\FilterChainInterface;
 use Ahlin\Mailer\Model\Interfaces\MailUserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Templating\EngineInterface;
@@ -142,7 +143,7 @@ class AdvancedMail extends AbstractMail
     /**
      * {@inheritdoc}
      */
-    public function transform(EngineInterface $templating, array $templates)
+    public function transform(EngineInterface $templating, FilterChainInterface $filterChain, array $templates)
     {
         $message = $this->createSwiftMessage();
 
@@ -154,15 +155,20 @@ class AdvancedMail extends AbstractMail
             $message->addBcc($recipient->getEmail(), $recipient->getFullName());
         }
 
-        foreach($this->attachments as $attachment)
-        {
+        foreach($this->attachments as $attachment) {
             $message->attach(\Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType()));
         }
 
-        $message->setBody($templating->render($templates[0]['view'], $this->parameters), $templates[0]['contentType']);
+        $message->setContentType($templates[0]['contentType']);
+        
+        $body = $templating->render($templates[0]['view'], $this->parameters);
+        $body = $filterChain->apply($body, $message);
+        $message->setBody($body);
 
         for ($i = 1; $i < count($templates); $i++) {
-            $message->addPart($templating->render($templates[$i]['view'], $this->parameters), $templates[$i]['contentType']);
+            $body = $templating->render($templates[$i]['view'], $this->parameters);
+            $body = $filterChain->apply($body, $message);
+            $message->addPart($body, $templates[$i]['contentType']);
         }
 
         return $message;

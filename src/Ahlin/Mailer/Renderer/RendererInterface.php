@@ -17,6 +17,9 @@ interface RendererInterface
     /**
      * Transforms SwiftTransformationInterface to \Swift_Message using EngineInterface
      * In case of any errors an instance of MailingException is thrown
+     * 
+     * Also applies the filters.
+     * 
      * @param MailInterface $mail
      * @return \Swift_Message
      * @throws MailingException

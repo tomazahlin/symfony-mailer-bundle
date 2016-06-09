@@ -67,6 +67,18 @@ class Mailer implements QueueableMailerInterface
     /**
      * {@inheritdoc}
      */
+    public function sendSwiftMessage(\Swift_Mime_Message $message)
+    {
+        try{
+            $this->swiftMailer->send($message);
+        } catch(Exception $e) {
+            throw new MailerException($e->getMessage(), $e->getCode());
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function sendFirstFromQueue()
     {
         if ($this->queue->isEmpty()) {

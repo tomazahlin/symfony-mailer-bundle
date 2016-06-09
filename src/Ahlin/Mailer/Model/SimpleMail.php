@@ -2,6 +2,7 @@
 
 namespace Ahlin\Mailer\Model;
 
+use Ahlin\Mailer\Filter\FilterChainInterface;
 use Ahlin\Mailer\Model\Interfaces\MailUserInterface;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -39,15 +40,19 @@ class SimpleMail extends AbstractMail
     /**
      * {@inheritdoc}
      */
-    public function transform(EngineInterface $templating, array $templates)
+    public function transform(EngineInterface $templating, FilterChainInterface $filterChain, array $templates)
     {
         $message = $this->createSwiftMessage();
         $message->setTo($this->recipient->getEmail(), $this->recipient->getFullName());
 
-        $message->setBody($templating->render($templates[0]['view'], $this->parameters), $templates[0]['contentType']);
+        $body = $templating->render($templates[0]['view'], $this->parameters);
+        $body = $filterChain->apply($body, $message);
+        $message->setBody($body, $templates[0]['contentType']);
 
         for ($i = 1; $i < count($templates); $i++) {
-            $message->addPart($templating->render($templates[$i]['view'], $this->parameters), $templates[$i]['contentType']);
+            $part = $templating->render($templates[$i]['view'], $this->parameters);
+            $part = $filterChain->apply($part, $message);
+            $message->addPart($part, $templates[$i]['contentType']);
         }
 
         return $message;

@@ -138,3 +138,9 @@ In the twig template, you can access it with {{ myHomepageUrl }}.
 
 For any questions or issues regarding this bundle, please do not hesitate to ask. Feel free to create your own forked version
 or submit any pull requests.
+
+Version 2.2 allows you to add Filters, which modify the email's body.
+Some filters (if they maybe convert images from url to inline images) also can modify the Swift_Message model.
+All you have to do is to implement FilterInterface and tag the filter with "ahlin_mailer.filter".
+
+Version 2.2 allows you to use the Mailer class to send Swfit_Message instances.
