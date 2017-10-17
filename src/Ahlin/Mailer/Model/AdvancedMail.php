@@ -155,8 +155,13 @@ class AdvancedMail extends AbstractMail
             $message->addBcc($recipient->getEmail(), $recipient->getFullName());
         }
 
-        foreach($this->attachments as $attachment) {
-            $message->attach(\Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType()));
+       foreach($this->attachments as $attachment) {
+            if ( preg_match("/^[-a-zA-Z0-9+&@#\\/%?=~_|!:,.;]*$/",$attachment->getData()) ) {
+                $message->attach(\Swift_Attachment::fromPath($attachment->getData(), $attachment->getFilename(), $attachment->getContentType()));
+            }else{
+                $message->attach(\Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType()));
+            }
+
         }
 
         $message->setContentType($templates[0]['contentType']);
