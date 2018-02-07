@@ -57,9 +57,14 @@
             <tag name="ahlin_mailer.mapping" />
         </service>
 
-        <service id="ahlin_mailer.terminate_listener" class="Ahlin\Bundle\MailerBundle\Event\Listener\TerminateListener">
+        <service id="ahlin_mailer.kernel.terminate_listener" class="Ahlin\Bundle\MailerBundle\Event\Listener\TerminateListener">
             <argument type="service" id="ahlin_mailer.mailer" />
             <tag name="kernel.event_listener" event="kernel.terminate" method="execute" priority="255" />
+        </service>
+
+        <service id="ahlin_mailer.console.terminate_listener" class="Ahlin\Bundle\MailerBundle\Event\Listener\TerminateListener">
+            <argument type="service" id="ahlin_mailer.mailer" />
+            <tag name="kernel.event_listener" event="console.terminate" method="execute" priority="255" />
         </service>
 
     </services>

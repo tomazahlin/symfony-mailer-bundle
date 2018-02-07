@@ -35,17 +35,19 @@ class AdvancedMail extends AbstractMail
      * @param $subject
      * @param $template
      * @param int $priority
+     * @param string|null $returnPath
      */
     public function __construct(
         MailUserInterface $sender,
         $subject,
         $template,
-        $priority = self::DEFAULT_PRIORITY
+        $priority = self::DEFAULT_PRIORITY,
+        $returnPath = null
     ) {
         $this->attachments = new ArrayCollection();
         $this->recipients = new ArrayCollection();
         $this->bccRecipients = new ArrayCollection();
-        $this->init($sender, $subject, $template, $priority);
+        $this->init($sender, $subject, $template, $priority, $returnPath);
     }
 
     /**
@@ -157,6 +159,10 @@ class AdvancedMail extends AbstractMail
 
         foreach($this->attachments as $attachment) {
             $message->attach(\Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType()));
+        }
+
+        if ($this->hasReturnPath()) {
+            $message->setReturnPath($this->getReturnPath());
         }
 
         $message->setContentType($templates[0]['contentType']);

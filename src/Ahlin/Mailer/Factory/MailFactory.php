@@ -32,6 +32,7 @@ class MailFactory
      * @param string $subject
      * @param string|null $template (if null, default template will be used)
      * @param int|null $priority (if null, default mail priority will be used)
+     * @param string|null $returnPath
      * @return SimpleMail
      */
     public function create(
@@ -39,12 +40,13 @@ class MailFactory
         MailUserInterface $recipient,
         $subject,
         $template = null,
-        $priority = null
+        $priority = null,
+        $returnPath = null
     ) {
         if ($template === null) {
             $template = $this->defaultTemplate;
         }
-        return new SimpleMail($sender, $recipient, $subject, $template, $priority);
+        return new SimpleMail($sender, $recipient, $subject, $template, $priority, $returnPath);
     }
 
     /**
@@ -53,17 +55,19 @@ class MailFactory
      * @param $subject
      * @param string|null $template (if null, default template will be used)
      * @param int|null $priority (if null, default mail priority will be used)
+     * @param string|null $returnPath
      * @return AdvancedMail
      */
     public function createAdvanced(
         MailUserInterface $sender,
         $subject,
         $template = null,
-        $priority = null
+        $priority = null,
+        $returnPath = null
     ) {
         if ($template === null) {
             $template = $this->defaultTemplate;
         }
-        return new AdvancedMail($sender, $subject, $template, $priority);
+        return new AdvancedMail($sender, $subject, $template, $priority, $returnPath);
     }
 }
