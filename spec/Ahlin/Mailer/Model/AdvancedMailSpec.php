@@ -99,6 +99,7 @@ class AdvancedMailSpec extends ObjectBehavior
         $attachment->getData()->willReturn('test');
         $attachment->getFilename()->willReturn($attachmentFileName);
         $attachment->getContentType()->willReturn('text');
+        $attachment->isFilePath()->willReturn(false);
 
         $this->addRecipients([$recipient1, $recipient2]);
         $this->addBccRecipients([$recipient1, $recipient2]);
