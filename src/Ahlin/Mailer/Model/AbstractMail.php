@@ -29,6 +29,11 @@ abstract class AbstractMail implements MailInterface
     protected $template;
 
     /**
+     * @var string|null
+     */
+    protected $returnPath;
+
+    /**
      * Higher priority means that the message will be sent earlier, if multiple messages are to be sent at once
      * @var integer
      */
@@ -45,17 +50,20 @@ abstract class AbstractMail implements MailInterface
      * @param $subject - subject of the message
      * @param string $template - type of the message
      * @param int $priority - priority of the message, when it is sent
+     * @param $returnPath
      */
     final protected function init(
         MailUserInterface $sender,
         $subject,
         $template,
-        $priority
+        $priority,
+        $returnPath = null
     ) {
         $this->sender = $this->getUserModel($sender);
         $this->subject = $subject;
         $this->template = $template;
         $this->priority = $priority;
+        $this->returnPath = $returnPath;
     }
 
     /**
@@ -107,5 +115,21 @@ abstract class AbstractMail implements MailInterface
     protected function getUserModel(MailUserInterface $user)
     {
         return new User($user->getEmail(), $user->getFullName());
+    }
+
+    /**
+     * @return bool
+     */
+    protected function hasReturnPath()
+    {
+        return $this->returnPath !== null;
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function getReturnPath()
+    {
+        return $this->returnPath;
     }
 }

@@ -35,17 +35,19 @@ class AdvancedMail extends AbstractMail
      * @param $subject
      * @param $template
      * @param int $priority
+     * @param string|null $returnPath
      */
     public function __construct(
         MailUserInterface $sender,
         $subject,
         $template,
-        $priority = self::DEFAULT_PRIORITY
+        $priority = self::DEFAULT_PRIORITY,
+        $returnPath = null
     ) {
         $this->attachments = new ArrayCollection();
         $this->recipients = new ArrayCollection();
         $this->bccRecipients = new ArrayCollection();
-        $this->init($sender, $subject, $template, $priority);
+        $this->init($sender, $subject, $template, $priority, $returnPath);
     }
 
     /**
@@ -58,7 +60,7 @@ class AdvancedMail extends AbstractMail
         foreach ($recipients as $recipient) {
             $this->addRecipient($recipient);
         }
-        
+
         return $this;
     }
 
@@ -70,7 +72,7 @@ class AdvancedMail extends AbstractMail
     {
         $recipient = $this->getUserModel($recipient);
         $this->recipients->add($recipient);
-        
+
         return $this;
     }
 
@@ -93,7 +95,7 @@ class AdvancedMail extends AbstractMail
         foreach ($recipients as $recipient) {
             $this->addBccRecipient($recipient);
         }
-        
+
         return $this;
     }
 
@@ -106,7 +108,7 @@ class AdvancedMail extends AbstractMail
     {
         $recipient = $this->getUserModel($recipient);
         $this->bccRecipients->add($recipient);
-        
+
         return $this;
     }
 
@@ -127,7 +129,7 @@ class AdvancedMail extends AbstractMail
     public function addAttachment(Attachment $attachment)
     {
         $this->attachments->add($attachment);
-        
+
         return $this;
     }
 
@@ -156,11 +158,20 @@ class AdvancedMail extends AbstractMail
         }
 
         foreach($this->attachments as $attachment) {
-            $message->attach(\Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType()));
+
+            $swiftAttachment = $attachment->isFilePath() ?
+                \Swift_Attachment::fromPath($attachment->getData(), $attachment->getContentType()) :
+                \Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType());
+
+            $message->attach($swiftAttachment);
+        }
+
+        if ($this->hasReturnPath()) {
+            $message->setReturnPath($this->getReturnPath());
         }
 
         $message->setContentType($templates[0]['contentType']);
-        
+
         $body = $templating->render($templates[0]['view'], $this->parameters);
         $body = $filterChain->apply($body, $message);
         $message->setBody($body);

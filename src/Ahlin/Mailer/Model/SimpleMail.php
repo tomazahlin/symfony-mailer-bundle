@@ -25,16 +25,18 @@ class SimpleMail extends AbstractMail
      * @param $subject - subject of the message
      * @param string $template - type of the message
      * @param int $priority - priority of the message, when it is sent
+     * @param string|null $returnPath
      */
     public function __construct(
         MailUserInterface $sender,
         MailUserInterface $recipient,
         $subject,
         $template,
-        $priority = self::DEFAULT_PRIORITY
+        $priority = self::DEFAULT_PRIORITY,
+        $returnPath = null
     ) {
         $this->recipient = $this->getUserModel($recipient);
-        $this->init($sender, $subject, $template, $priority);
+        $this->init($sender, $subject, $template, $priority, $returnPath);
     }
 
     /**
@@ -44,6 +46,10 @@ class SimpleMail extends AbstractMail
     {
         $message = $this->createSwiftMessage();
         $message->setTo($this->recipient->getEmail(), $this->recipient->getFullName());
+
+        if ($this->hasReturnPath()) {
+            $message->setReturnPath($this->getReturnPath());
+        }
 
         $body = $templating->render($templates[0]['view'], $this->parameters);
         $body = $filterChain->apply($body, $message);
