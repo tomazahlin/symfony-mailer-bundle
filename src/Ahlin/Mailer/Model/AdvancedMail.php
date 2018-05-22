@@ -60,7 +60,7 @@ class AdvancedMail extends AbstractMail
         foreach ($recipients as $recipient) {
             $this->addRecipient($recipient);
         }
-        
+
         return $this;
     }
 
@@ -72,7 +72,7 @@ class AdvancedMail extends AbstractMail
     {
         $recipient = $this->getUserModel($recipient);
         $this->recipients->add($recipient);
-        
+
         return $this;
     }
 
@@ -95,7 +95,7 @@ class AdvancedMail extends AbstractMail
         foreach ($recipients as $recipient) {
             $this->addBccRecipient($recipient);
         }
-        
+
         return $this;
     }
 
@@ -108,7 +108,7 @@ class AdvancedMail extends AbstractMail
     {
         $recipient = $this->getUserModel($recipient);
         $this->bccRecipients->add($recipient);
-        
+
         return $this;
     }
 
@@ -129,7 +129,7 @@ class AdvancedMail extends AbstractMail
     public function addAttachment(Attachment $attachment)
     {
         $this->attachments->add($attachment);
-        
+
         return $this;
     }
 
@@ -158,7 +158,16 @@ class AdvancedMail extends AbstractMail
         }
 
         foreach($this->attachments as $attachment) {
-            $message->attach(\Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType()));
+
+            $swiftAttachment = $attachment->isFilePath() ?
+                \Swift_Attachment::fromPath($attachment->getData(), $attachment->getContentType()) :
+                \Swift_Attachment::newInstance($attachment->getData(), $attachment->getFilename(), $attachment->getContentType());
+
+            $message->attach($swiftAttachment);
+        }
+
+        if ($this->hasReturnPath()) {
+            $message->setReturnPath($this->getReturnPath());
         }
 
         if ($this->hasReturnPath()) {
@@ -166,7 +175,7 @@ class AdvancedMail extends AbstractMail
         }
 
         $message->setContentType($templates[0]['contentType']);
-        
+
         $body = $templating->render($templates[0]['view'], $this->parameters);
         $body = $filterChain->apply($body, $message);
         $message->setBody($body);
